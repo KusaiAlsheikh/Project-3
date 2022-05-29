@@ -10,7 +10,7 @@ float Matrix[50][50];
 char var_list[50] = "";
 int r_count = 0;
 
-void put_coef_into_matrix(char var_name, int row, float coef) {
+void put_coef_into_matrix(char var_name, int row, float coef) {//this function inputs the coef from file into a matrix form
 	if (var_name == 0) {
 		Matrix[row][c_count - 1] = coef;
 		return;
@@ -23,8 +23,8 @@ void put_coef_into_matrix(char var_name, int row, float coef) {
 	}
 }
 
-bool read_line(const char* fileName) {
-	FILE* file;
+bool read_line(const char* fileName) {//this function opens the file and reads each line. While reading file, it scans each line for its coef and var
+	FILE* file;//saves them and counts var number
 	errno_t res;
 
 	if (res = fopen_s(&file, fileName, "r")) {
@@ -32,7 +32,7 @@ bool read_line(const char* fileName) {
 		return 0;
 	}
 
-	do {
+	do {//this finds the number of columns/ variables without repeatition 
 		char line_buffer[128] = ""; // buffer to store line
 		int n;
 		if ((n = fscanf(file, "%128[^\n]\n", line_buffer)) == 1) {
@@ -63,7 +63,7 @@ bool read_line(const char* fileName) {
 
 	rewind(file);
 
-	do {
+	do {//this finds the the coefs and saves them
 		char line_buffer[128] = ""; // buffer to store line
 		int n;
 		if ((n = fscanf(file, "%128[^\n]\n", line_buffer)) == 1) {
@@ -108,7 +108,7 @@ bool read_line(const char* fileName) {
 	return 1;
 }
 
-void solve_matrix(int x, int y) {
+void solve_matrix(int x, int y) {//this function solves the matrix using the gauss jordan method with the use of recursion.
 	float* row = Matrix[y];
 	float coef = row[x];
 	if (coef == 0.0) {
